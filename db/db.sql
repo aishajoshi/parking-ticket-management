@@ -8,3 +8,22 @@ create table user (
                       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                       UNIQUE (email)
 );
+create table ticket
+(
+    ticket_id      INT AUTO_INCREMENT PRIMARY KEY,
+    vehicle_number VARCHAR(20) NOT NULL,
+    entry_time     TIMESTAMP NULL,
+    exit_time      TIMESTAMP NULL,
+    total_time     INT,
+    total_amount   DECIMAL(10, 2) NULL,
+    created_at     TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_by     INT,
+    updated_by     INT,
+    customer_id    INT,
+    note           VARCHAR(255)
+);
+
+
+
+
+
