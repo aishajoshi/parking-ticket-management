@@ -1,6 +1,6 @@
 plugins {
-    id ("java")
-    id ("maven-publish")
+    id("java")
+    id("maven-publish")
 }
 
 repositories {
@@ -8,9 +8,8 @@ repositories {
 }
 
 dependencies {
-    implementation ("mysql:mysql-connector-java:8.0.28")
-    testImplementation ("junit:junit:4.13.2")
-    // Add any other dependencies here
+    implementation("com.mysql:mysql-connector-j:8.3.0")
+    testImplementation("junit:junit:4.13.2")
 }
 
 tasks.test {
