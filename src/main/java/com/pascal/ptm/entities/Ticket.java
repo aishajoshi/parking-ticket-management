@@ -14,7 +14,7 @@ public class Ticket {
     LocalDateTime entryTime;
     LocalDateTime exitTime;
     long totalTime;
-    long totalAmount;
+    float totalAmount;
     String phone;
     String note;
     int createdBy;
@@ -62,11 +62,11 @@ public class Ticket {
         this.totalTime = totalTime;
     }
 
-    public long getTotalAmount() {
+    public float getTotalAmount() {
         return totalAmount;
     }
 
-    public void setTotalAmount(long totalAmount) {
+    public void setTotalAmount(float totalAmount) {
         this.totalAmount = totalAmount;
     }
 

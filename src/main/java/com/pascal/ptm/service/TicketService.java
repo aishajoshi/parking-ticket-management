@@ -42,6 +42,21 @@ public class TicketService {
         }
     }
 
+    public Ticket getTicketByTicketNumber(String ticketNumber) {
+        try {
+
+            if (ticketNumber == null || Objects.equals(ticketNumber, "")) {
+                System.out.println("Invalid ticket number.");
+                return null;
+            }
+
+            return ticketRepo.getTicketByTicketNumber(ticketNumber);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 
     private boolean isValidTicket(Ticket ticket) {
         if (ticket.getVehicleNumber() == null || Objects.equals(ticket.getVehicleNumber(), "")) {
