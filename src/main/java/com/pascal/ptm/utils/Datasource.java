@@ -16,6 +16,7 @@ public class Datasource {
     public Connection getConnection() {
         Connection connection;
         try {
+            System.out.println(JDBC_URL);
             connection = DriverManager.getConnection(JDBC_URL, Settings.DATABASE_USER, Settings.DATABASE_PASSWORD);
         } catch (Exception e) {
             e.printStackTrace();

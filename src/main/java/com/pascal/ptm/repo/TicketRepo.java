@@ -20,18 +20,15 @@ public class TicketRepo {
     }
 
     public boolean createTicket(Ticket ticket) throws SQLException {
-        String sql = "INSERT INTO ticket (vehicle_number, entry_time, exit_time, total_time, total_amount, created_by, updated_by, phone, note) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO ticket (vehicle_number, ticket_number,entry_time, created_by, phone, note) VALUES (?, ?, ?, ?, ?,?)";
 
         try (PreparedStatement statement = this.datasource.getConnection().prepareStatement(sql)) {
             statement.setString(1, ticket.getVehicleNumber());
-            statement.setTimestamp(2, Timestamp.valueOf(ticket.getEntryTime()));
-            statement.setTimestamp(3, Timestamp.valueOf(ticket.getExitTime()));
-            statement.setLong(4, ticket.getTotalTime());
-            statement.setDouble(5, ticket.getTotalAmount());
-            statement.setInt(6, ticket.getCreatedBy());
-            statement.setInt(7, ticket.getUpdatedBy());
-            statement.setString(8, ticket.getPhone());
-            statement.setString(9, ticket.getNote());
+            statement.setString(2, ticket.getTicketNumber());
+            statement.setTimestamp(3, Timestamp.valueOf(ticket.getEntryTime()));
+            statement.setInt(4, ticket.getCreatedBy());
+            statement.setString(5, ticket.getPhone());
+            statement.setString(6, ticket.getNote());
 
             statement.executeUpdate();
             return true;

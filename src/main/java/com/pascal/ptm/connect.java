@@ -7,6 +7,7 @@ import java.sql.Timestamp;
 public class connect {
     // JDBC URL, username, and password of MySQL server
     private static final String JDBC_URL = "jdbc:mysql://localhost:3306/parking_ticket_management";
+
     private static final String JDBC_USER = "root";
     private static final String JDBC_PASSWORD = "";
 

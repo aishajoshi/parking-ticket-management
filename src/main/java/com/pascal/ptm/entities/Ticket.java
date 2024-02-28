@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 
 public class Ticket {
     int ticketId;
+    String ticketNumber;
     String vehicleNumber;
     LocalDateTime entryTime;
     LocalDateTime exitTime;
@@ -115,5 +116,31 @@ public class Ticket {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+    public void setTicketNumber(String parkingTicketNumber) {
+        this.ticketNumber = parkingTicketNumber;
+    }
+
+    public String getTicketNumber() {
+        return ticketNumber;
+    }
+
+    @Override
+    public String toString() {
+        return "Ticket{" +
+                "ticketId=" + ticketId +
+                ", ticketNumber='" + ticketNumber + '\'' +
+                ", vehicleNumber='" + vehicleNumber + '\'' +
+                ", entryTime=" + entryTime +
+                ", exitTime=" + exitTime +
+                ", totalTime=" + totalTime +
+                ", totalAmount=" + totalAmount +
+                ", phone='" + phone + '\'' +
+                ", note='" + note + '\'' +
+                ", createdBy=" + createdBy +
+                ", updatedBy=" + updatedBy +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                '}';
     }
 }

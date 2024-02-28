@@ -12,6 +12,7 @@ create table user
 create table ticket
 (
     ticket_id      INT AUTO_INCREMENT PRIMARY KEY,
+    ticket_number  VARCHAR(36),
     vehicle_number VARCHAR(20)    NOT NULL,
     entry_time     TIMESTAMP      NULL,
     exit_time      TIMESTAMP      NULL,
