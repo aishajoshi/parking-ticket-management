@@ -65,12 +65,16 @@ public class TicketRepo {
     }
 
     public boolean saveTicketCheckoutDetail(int ticketId, LocalDateTime exitTime, int updatedBy, double totalAmount, long totalTimeSec) throws SQLException {
-        String sql = "UPDATE ticket SET exit_time = ?, total_amount = ?, updated_by = ? WHERE ticket_id = ?";
+        String sql = "UPDATE ticket SET exit_time = ?, total_amount = ?, updated_by = ?,total_time=? WHERE ticket_id = ?";
         try (PreparedStatement statement = this.datasource.getConnection().prepareStatement(sql)) {
             statement.setTimestamp(1, Timestamp.valueOf(exitTime));
             statement.setDouble(2, totalAmount);
             statement.setInt(3, updatedBy);
-            statement.setInt(4, ticketId);
+            statement.setLong(4, totalTimeSec);
+            statement.setInt(5,ticketId);
+
+
+
 
             int rowsUpdated = statement.executeUpdate();
             return rowsUpdated > 0;

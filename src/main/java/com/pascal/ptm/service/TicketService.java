@@ -53,12 +53,12 @@ public class TicketService {
     }
 
 
-    public boolean checkoutTicket(String ticketNumber) {
+    public Ticket checkoutTicket(String ticketNumber) {
         try {
             Ticket ticket = this.getTicketByTicketNumber(ticketNumber);
             if (ticket == null) {
                 System.out.println("Ticket not found");
-                return false;
+                return null;
             }
 
             LocalDateTime exitTime = LocalDateTime.now(); // Assuming exit time is the current time
@@ -68,19 +68,20 @@ public class TicketService {
             double totalAmount = calculateTotalAmount(durationSeconds); // Calculate total amount
             int updatedBy = 0; // Assuming you have a method to get the user ID who is checking out the ticket
 
-            return ticketRepo.saveTicketCheckoutDetail(ticketId, exitTime, updatedBy, totalAmount, durationSeconds);
+            boolean status = ticketRepo.saveTicketCheckoutDetail(ticketId, exitTime, updatedBy, totalAmount, durationSeconds);
+            return this.getTicketByTicketNumber(ticketNumber);
         } catch (SQLException e) {
             e.printStackTrace(); // Handle or log the exception appropriately
-            return false; // Return false indicating failure
+            return null; // Return false indicating failure
         }
     }
 
     private double calculateTotalAmount(long durationSeconds) {
         double totalAmount = 0;
 
-        if (durationSeconds >= 60*60) { // If duration is more than or equal to an hour
+        if (durationSeconds >= 60 * 60) { // If duration is more than or equal to an hour
             totalAmount = Math.ceil(durationSeconds / 3600.0) * 25; // Hourly rate: 25 rs
-        } else if (durationSeconds >= 60*30) { // If duration is more than or equal to half an hour
+        } else if (durationSeconds >= 60 * 30) { // If duration is more than or equal to half an hour
             totalAmount = Math.ceil(durationSeconds / 1800.0) * 15; // Half hour rate: 15 rs
         } else if (durationSeconds >= 300) { // If duration is more than or equal to 5 minutes
             totalAmount = 10; // Less than 5 min rate: 10 rs

@@ -13,7 +13,8 @@ import com.pascal.ptm.utils.Datasource;
 public class TicketServiceExample {
     public static void main(String[] args) {
 //        createTicketExample();
-        getTicketExample();
+//        getTicketExample();
+        ticketCheckoutExample();
     }
 
     public static void createTicketExample() {
@@ -35,6 +36,16 @@ public class TicketServiceExample {
         TicketRepo ticketRepo = new TicketRepo(datasource);
         TicketService ticketService = new TicketService(ticketRepo);
         Ticket ticket = ticketService.getTicketByTicketNumber("202402282827");
+        System.out.println("Ticket: " + ticket);
+    }
+
+
+    public static void ticketCheckoutExample() {
+        System.out.println("Ticket checkout example");
+        Datasource datasource = new Datasource();
+        TicketRepo ticketRepo = new TicketRepo(datasource);
+        TicketService ticketService = new TicketService(ticketRepo);
+        Ticket ticket = ticketService.checkoutTicket("202402276394");
         System.out.println("Ticket: " + ticket);
     }
 }
