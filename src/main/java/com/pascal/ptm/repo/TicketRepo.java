@@ -12,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 public class TicketRepo {
     private final Datasource datasource;
@@ -63,11 +64,10 @@ public class TicketRepo {
         return null;
     }
 
-
-    public boolean saveTicketCheckoutDetail(int ticketId, Timestamp exitTime, int updatedBy, double totalAmount) throws SQLException {
+    public boolean saveTicketCheckoutDetail(int ticketId, LocalDateTime exitTime, int updatedBy, double totalAmount, long totalTimeSec) throws SQLException {
         String sql = "UPDATE ticket SET exit_time = ?, total_amount = ?, updated_by = ? WHERE ticket_id = ?";
         try (PreparedStatement statement = this.datasource.getConnection().prepareStatement(sql)) {
-            statement.setTimestamp(1, exitTime);
+            statement.setTimestamp(1, Timestamp.valueOf(exitTime));
             statement.setDouble(2, totalAmount);
             statement.setInt(3, updatedBy);
             statement.setInt(4, ticketId);
@@ -77,4 +77,3 @@ public class TicketRepo {
         }
     }
 }
-
