@@ -1,9 +1,9 @@
 package com.pascal.ptm.service;
-
 import com.pascal.ptm.entities.Ticket;
 import com.pascal.ptm.repo.TicketRepo;
 
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -11,7 +11,7 @@ import java.util.Objects;
 import java.util.Random;
 
 public class TicketService {
-    TicketRepo ticketRepo;
+    private final TicketRepo ticketRepo;
 
     public TicketService(TicketRepo ticketRepo) {
         this.ticketRepo = ticketRepo;
@@ -19,16 +19,13 @@ public class TicketService {
 
     public Ticket createTicket(Ticket ticket) {
         try {
-
             if (!isValidTicket(ticket)) {
                 System.out.println("Invalid ticket information. Please check your input.");
                 return null;
             }
 
             String ticketNumber = generateTicketNumber();
-
             ticket.setEntryTime(LocalDateTime.now());
-
             ticket.setTicketNumber(ticketNumber);
 
             ticketRepo.createTicket(ticket);
@@ -44,12 +41,10 @@ public class TicketService {
 
     public Ticket getTicketByTicketNumber(String ticketNumber) {
         try {
-
-            if (ticketNumber == null || Objects.equals(ticketNumber, "")) {
+            if (ticketNumber == null || ticketNumber.isEmpty()) {
                 System.out.println("Invalid ticket number.");
                 return null;
             }
-
             return ticketRepo.getTicketByTicketNumber(ticketNumber);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -58,12 +53,39 @@ public class TicketService {
     }
 
 
-    private boolean isValidTicket(Ticket ticket) {
-        if (ticket.getVehicleNumber() == null || Objects.equals(ticket.getVehicleNumber(), "")) {
-            System.out.println("vehicle number is required");
-            return false;
+
+    public boolean checkoutTicket(String ticketNumber) {
+        try {
+            Ticket ticket = this.getTicketByTicketNumber(ticketNumber);
+            if (ticket == null){
+                System.out.println("Ticket not found");
+                return false;
+            }
+
+            LocalDateTime exitTime = LocalDateTime.now(); // Assuming exit time is the current time
+            int ticketId = ticket.getTicketId(); // Assuming you have a method to get ticket ID from Ticket object
+
+            double totalAmount = calculateTotalAmount(ticket.getEntryTime(), exitTime); // Calculate total amount
+            int updatedBy = 0; // Assuming you have a method to get the user ID who is checking out the ticket
+
+            return ticketRepo.saveTicketCheckoutDetail(ticketId, exitTime, updatedBy, totalAmount);
+        } catch (SQLException e) {
+            e.printStackTrace(); // Handle or log the exception appropriately
+            return false; // Return false indicating failure
         }
-        return true;
+    }
+
+    // Method to calculate total amount based on entry and exit times (you can adjust the logic accordingly)
+    private double calculateTotalAmount(LocalDateTime entryTime, LocalDateTime exitTime) {
+        // Your logic to calculate total amount based on entry and exit times
+        // For example, you can calculate duration and multiply by rate
+        return 0.0; // Placeholder value
+    }
+
+
+
+    private boolean isValidTicket(Ticket ticket) {
+        return ticket.getVehicleNumber() != null && !ticket.getVehicleNumber().isEmpty();
     }
 
     private String generateTicketNumber() {
@@ -71,7 +93,6 @@ public class TicketService {
         String datePart = dateFormat.format(new Date());
         Random random = new Random();
         int randomNumber = random.nextInt(10000);
-
         return datePart + String.format("%04d", randomNumber);
     }
 }

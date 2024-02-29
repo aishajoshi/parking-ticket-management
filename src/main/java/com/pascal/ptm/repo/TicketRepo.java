@@ -62,4 +62,17 @@ public class TicketRepo {
         }
         return null;
     }
+
+    public boolean saveTicketCheckoutDetail(int ticketId, Timestamp exitTime, int updatedBy, double totalAmount) throws SQLException {
+        String sql = "UPDATE ticket SET exit_time = ?, total_amount = ?, updated_by = ? WHERE ticket_id = ?";
+        try (PreparedStatement statement = this.datasource.getConnection().prepareStatement(sql)) {
+            statement.setTimestamp(1, exitTime);
+            statement.setDouble(2, totalAmount);
+            statement.setInt(3, updatedBy);
+            statement.setInt(4, ticketId);
+
+            int rowsUpdated = statement.executeUpdate();
+            return rowsUpdated > 0;
+        }
+    }
 }
