@@ -29,7 +29,7 @@ public class AmountServiceExample {
     }
 
 
-//test1
+//test
 
 //    public static double totalAmountCalculateExample(long totalTime) {
 //        System.out.println("Calculate Total amount example");
