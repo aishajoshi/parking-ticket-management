@@ -2,7 +2,7 @@ package com.pascal.ptm.examples;
 
 public class AmountServiceExample {
     public static void main(String[] args) {
-        long totalTimeSec = 2*60*60 + 30*60;
+        long totalTimeSec = 1*60*60 + 6*60;
         System.out.println("Total amount= " + totalAmountCalculateExample(totalTimeSec));
     }
 
@@ -10,7 +10,7 @@ public class AmountServiceExample {
     public static double totalAmountCalculateExample(long totalTime) {
         System.out.println("Calculate Total amount example");
         double fiveMinuteRate=0.0;
-        double moreThanFIveMinuteRate=15.0;
+        double halfHourRate=15.0;
         double hourlyRate=25.0;
 
         double totalCost=0.0;
@@ -18,12 +18,12 @@ public class AmountServiceExample {
         if (totalTime <= 300) { // 5 minutes (300 seconds)
             totalCost = fiveMinuteRate;
         } else if (totalTime <= 1800) { // 30 minutes (1800 seconds)
-            totalCost = moreThanFIveMinuteRate;
+            totalCost = halfHourRate;
         } else if (totalTime <= 3600) { // 1 hour (3600 seconds)
             totalCost = hourlyRate;
         } else { // More than 1 hour
-            long remainingTime = totalTime - 3600; // Subtract 1 hour //360
-            totalCost = 25 + (Math.floor( (remainingTime / 3600.0) * hourlyRate));
+            long remainingTime = totalTime - 3600; // Subtract 1 hour
+            totalCost=25+ totalAmountCalculateExample(remainingTime);
         }
         return totalCost;
     }
