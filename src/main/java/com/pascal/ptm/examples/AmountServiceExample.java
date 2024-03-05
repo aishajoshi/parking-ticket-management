@@ -28,6 +28,7 @@ public class AmountServiceExample {
         return totalCost;
     }
 
+    //
 
 
 //    public static double totalAmountCalculateExample(long totalTime) {
