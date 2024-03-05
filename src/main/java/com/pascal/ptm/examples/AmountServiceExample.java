@@ -2,7 +2,7 @@ package com.pascal.ptm.examples;
 
 public class AmountServiceExample {
     public static void main(String[] args) {
-        long totalTimeSec = 3960;
+        long totalTimeSec = 2*60*60 + 30*60;
         System.out.println("Total amount= " + totalAmountCalculateExample(totalTimeSec));
     }
 
