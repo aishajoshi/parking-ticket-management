@@ -9,7 +9,7 @@ public class connect {
     private static final String JDBC_URL = "jdbc:mysql://localhost:3306/parking_ticket_management";
 
     private static final String JDBC_USER = "root";
-    private static final String JDBC_PASSWORD = "";
+    private static final String JDBC_PASSWORD = "aisha@23";
 
     // JDBC variables for opening, closing and managing connection
     private static Connection connection;
