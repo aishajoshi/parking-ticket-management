@@ -66,7 +66,7 @@ public class TicketService {
             int ticketId = ticket.getTicketId(); // Assuming you have a method to get ticket ID from Ticket object
 
             long durationSeconds = Duration.between(ticket.getEntryTime(), exitTime).getSeconds(); // Calculate duration in seconds
-            double totalAmount = calculateTotalAmount(ticket.getEntryTime(),exitTime); // Calculate total amount
+            double totalAmount = totalAmountCalculate(durationSeconds);// Calculate total amount
             int updatedBy = 0; // Assuming you have a method to get the user ID who is checking out the ticket
 
             boolean status = ticketRepo.saveTicketCheckoutDetail(ticketId, exitTime, updatedBy, totalAmount, durationSeconds);
@@ -77,23 +77,26 @@ public class TicketService {
         }
     }
 
-    public double calculateTotalAmount(LocalDateTime entryTime, LocalDateTime exitTime) {
-        // Your logic to calculate total amount based on entry and exit times
-        // For example, you can calculate duration and multiply by rate
-        double totalCost;
+    public static double totalAmountCalculate(long totalTime) {
+        System.out.println("Calculate Total amount example");
+        double fiveMinuteRate=0.0;
+        double halfHourRate=15.0;
+        double hourlyRate=25.0;
 
-        long durationSeconds = Duration.between(entryTime, exitTime).getSeconds(); // Calculate duration in seconds
-        if (durationSeconds <= 300) {
-            totalCost = 0; // First five minutes are free
-        } else {
-//            double billableHours = Math.ceil(totalTime); // Round up to the nearest hour
-            totalCost = (double) (25 * durationSeconds) /(3600);
+        double totalCost=0.0;
+
+        if (totalTime <= 300) { // 5 minutes (300 seconds)
+            totalCost = fiveMinuteRate;
+        } else if (totalTime <= 1800) { // 30 minutes (1800 seconds)
+            totalCost = halfHourRate;
+        } else if (totalTime <= 3600) { // 1 hour (3600 seconds)
+            totalCost = hourlyRate;
+        } else { // More than 1 hour
+            long remainingTime = totalTime - 3600; // Subtract 1 hour
+            totalCost=25+ totalAmountCalculate(remainingTime);
         }
-
-
-        return totalCost; // Placeholder value
+        return totalCost;
     }
-
     // Method to calculate total amount based on entry and exit times (you can adjust the logic accordingly)
 
 

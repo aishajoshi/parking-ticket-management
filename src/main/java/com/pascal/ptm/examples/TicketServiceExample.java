@@ -12,8 +12,8 @@ import com.pascal.ptm.utils.Datasource;
 
 public class TicketServiceExample {
     public static void main(String[] args) {
-//        createTicketExample();
-//        getTicketExample();
+        createTicketExample();
+        getTicketExample();
         ticketCheckoutExample();
     }
 

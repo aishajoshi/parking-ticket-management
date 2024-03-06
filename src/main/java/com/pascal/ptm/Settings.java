@@ -10,5 +10,5 @@ public class Settings {
     public static final int DATABASE_PORT = 3306;
     public static final String DATABASE_NAME = "parking_ticket_management";
     public static final String DATABASE_USER = "root";
-    public static final String DATABASE_PASSWORD = "";
+    public static final String DATABASE_PASSWORD = "aisha@23";
 }
