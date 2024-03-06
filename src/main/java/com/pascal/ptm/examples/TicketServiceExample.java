@@ -14,9 +14,9 @@ import java.util.List;
 
 public class TicketServiceExample {
     public static void main(String[] args) {
-        createTicketExample();
-        getTicketExample();
-        ticketCheckoutExample();
+//        createTicketExample();
+//        getTicketExample();
+//        ticketCheckoutExample();
         listTicketExample();
     }
 

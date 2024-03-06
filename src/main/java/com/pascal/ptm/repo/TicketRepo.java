@@ -42,29 +42,12 @@ public class TicketRepo {
     public List<Ticket> listTicket() throws SQLException {
         String sql = "select * from ticket";
         PreparedStatement statement = this.datasource.getConnection().prepareStatement(sql);
-
         List<Ticket> ticketList=new ArrayList<>();
         ResultSet resultSet = statement.executeQuery();
-        while (resultSet.next()) {
-            Ticket ticket = new Ticket();
-            ticket.setTicketId(resultSet.getInt("ticket_id"));
-            ticket.setVehicleNumber(resultSet.getString("vehicle_number"));
-            ticket.setTicketNumber(resultSet.getString("ticket_number"));
-            ticket.setEntryTime(resultSet.getTimestamp("entry_time").toLocalDateTime());
-            if (resultSet.getTimestamp("exit_time") != null) {
-                ticket.setExitTime(resultSet.getTimestamp("exit_time").toLocalDateTime());
-            }
-            ticket.setTotalTime(resultSet.getLong("total_time"));
-            ticket.setTotalAmount(resultSet.getFloat("total_amount"));
-            ticket.setCreatedBy(resultSet.getInt("created_by"));
-            ticket.setPhone(resultSet.getString("phone"));
-            ticket.setNote(resultSet.getString("note"));
-
-            ticketList.add(ticket);
-
-
+        while(resultSet.next()){
+            ticketList.add(mapToEntity(resultSet)) ;
         }
-        return ticketList;
+       return ticketList;
 
 }
 
@@ -72,31 +55,32 @@ public class TicketRepo {
 
     public Ticket getTicketByTicketNumber(String ticketNumber) throws SQLException {
         String sql = "select ticket_id, vehicle_number, ticket_number, entry_time,  exit_time, total_time, total_amount, created_by, phone, note from ticket where ticket_number = ?";
-
         PreparedStatement statement = this.datasource.getConnection().prepareStatement(sql);
         statement.setString(1, ticketNumber);
-
         ResultSet resultSet = statement.executeQuery();
-        if (resultSet.next()) {
-            Ticket ticket = new Ticket();
-            ticket.setTicketId(resultSet.getInt("ticket_id"));
-            ticket.setVehicleNumber(resultSet.getString("vehicle_number"));
-            ticket.setTicketNumber(resultSet.getString("ticket_number"));
-
-            ticket.setEntryTime(resultSet.getTimestamp("entry_time").toLocalDateTime());
-            if (resultSet.getTimestamp("exit_time") != null) {
-                ticket.setExitTime(resultSet.getTimestamp("exit_time").toLocalDateTime());
-            }
-            ticket.setTotalTime(resultSet.getLong("total_time"));
-            ticket.setTotalAmount(resultSet.getFloat("total_amount"));
-            ticket.setCreatedBy(resultSet.getInt("created_by"));
-            ticket.setPhone(resultSet.getString("phone"));
-            ticket.setNote(resultSet.getString("note"));
-            return ticket;
-        }
-        return null;
+        return mapToEntity(resultSet);
     }
 
+private Ticket mapToEntity(ResultSet resultSet) throws SQLException {
+    Ticket ticket = new Ticket();
+    if (resultSet.next()) {
+        ticket.setTicketId(resultSet.getInt("ticket_id"));
+        ticket.setVehicleNumber(resultSet.getString("vehicle_number"));
+        ticket.setTicketNumber(resultSet.getString("ticket_number"));
+
+        ticket.setEntryTime(resultSet.getTimestamp("entry_time").toLocalDateTime());
+        if (resultSet.getTimestamp("exit_time") != null) {
+            ticket.setExitTime(resultSet.getTimestamp("exit_time").toLocalDateTime());
+        }
+        ticket.setTotalTime(resultSet.getLong("total_time"));
+        ticket.setTotalAmount(resultSet.getFloat("total_amount"));
+        ticket.setCreatedBy(resultSet.getInt("created_by"));
+        ticket.setPhone(resultSet.getString("phone"));
+        ticket.setNote(resultSet.getString("note"));
+
+    }
+    return ticket;
+}
 
 
 
