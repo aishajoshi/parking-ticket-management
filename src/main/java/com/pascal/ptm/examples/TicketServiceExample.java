@@ -10,11 +10,14 @@ import com.pascal.ptm.repo.TicketRepo;
 import com.pascal.ptm.service.TicketService;
 import com.pascal.ptm.utils.Datasource;
 
+import java.util.List;
+
 public class TicketServiceExample {
     public static void main(String[] args) {
         createTicketExample();
         getTicketExample();
         ticketCheckoutExample();
+        listTicketExample();
     }
 
     public static void createTicketExample() {
@@ -47,5 +50,18 @@ public class TicketServiceExample {
         TicketService ticketService = new TicketService(ticketRepo);
         Ticket ticket = ticketService.checkoutTicket("202402276394");
         System.out.println("Ticket: " + ticket);
+    }
+
+
+    public static void listTicketExample() {
+        System.out.println("List Ticket Example");
+
+        Datasource datasource = new Datasource();
+        TicketRepo ticketRepo = new TicketRepo(datasource);
+        TicketService ticketService = new TicketService(ticketRepo);
+        List<Ticket> ticketList = ticketService.listTicket();
+
+        System.out.println("ticket List: " + ticketList);
+
     }
 }

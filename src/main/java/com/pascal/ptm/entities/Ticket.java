@@ -117,6 +117,7 @@ public class Ticket {
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
+
     public void setTicketNumber(String parkingTicketNumber) {
         this.ticketNumber = parkingTicketNumber;
     }
