@@ -5,5 +5,3 @@ package com.pascal.ptm.repo;
  * Created on 27/02/2024.
  */
 
-public class UserRepo {
-}
