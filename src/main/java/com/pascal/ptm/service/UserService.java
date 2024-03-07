@@ -1,9 +1,61 @@
 package com.pascal.ptm.service;
-/*
- * Created by Ashok Kumar Pant
- * Email: asokpant@gmail.com
- * Created on 27/02/2024.
- */
+
+import com.pascal.ptm.entities.User;
+import com.pascal.ptm.repo.UserRepo;
+
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.List;
+import java.util.Random;
 
 public class UserService {
+    private final UserRepo userRepo;
+
+    public UserService(UserRepo userRepo) {
+        this.userRepo = userRepo;
+    }
+
+    public User addUser(User user) {
+        try {
+            if (!isValidUser(user)) {
+                System.out.println("Invalid user information. Please check your input.");
+                return null;
+            }
+            userRepo.addUser(user);
+            return user;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public List<User> listUser() {
+        try {
+            return userRepo.listUser();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+
+        }
+    }
+    public User getUserByEmail(String email) {
+        try{
+            if (email == null || email.isEmpty()) {
+                System.out.println("Invalid email");
+                return null;
+            }
+            return userRepo.getUserByUseremail(email);
+
+        } catch (SQLException e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
+    private boolean isValidUser(User user) {
+     return user.getUserName()!=null && user.getEmail()!=null;
+    }
 }

@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 public class User {
     int userId;
-    char userName;
+    String userName;
     String email;
     String password;
     LocalDateTime createdAt;
@@ -15,6 +15,14 @@ public class User {
 
     public void setUserId(int userId) {
         this.userId = userId;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getEmail() {
@@ -41,6 +49,7 @@ public class User {
         this.createdAt = createdAt;
     }
 
+    @Override
     public String toString() {
         return "User{" +
                 "userId=" + userId +

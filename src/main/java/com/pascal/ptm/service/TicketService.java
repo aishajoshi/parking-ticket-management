@@ -41,9 +41,7 @@ public class TicketService {
     }
     public List<Ticket> listTicket() {
         try {
-//            if (ticketNumber == null || ticketNumber.isEmpty()) {
-//                System.out.println("Invalid ticket number.");
-//                return null;
+//
 //            }
             return ticketRepo.listTicket();
         } catch (SQLException e) {
