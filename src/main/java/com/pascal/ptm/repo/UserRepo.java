@@ -66,7 +66,7 @@ public class UserRepo {
     }
 
     public User getUserByUserName(String username) throws SQLException {
-        String sql = "select * from user where email = ?";
+        String sql = "select * from user where username = ?";
         PreparedStatement statement = this.datasource.getConnection().prepareStatement(sql);
         statement.setString(1, username);
         ResultSet resultSet = statement.executeQuery();
