@@ -14,7 +14,8 @@ public class UserServiceExample {
     public static void main(String[] args) {
 //        createTicketExample();
 //        listUserExample();
-        getUserExample();
+//        getUserExample();
+        getUserName();
     }
 
     public static void createTicketExample() {
@@ -51,4 +52,13 @@ public class UserServiceExample {
         User user = userService.getUserByEmail("aisha60@gmail.com");
         System.out.println("User:" + user);
     }
+    public static void getUserName() {
+        System.out.println("User get example");
+        Datasource datasource = new Datasource();
+        UserRepo userRepo = new UserRepo(datasource);
+        UserService userService =new UserService(userRepo);
+        User user = userService.getUserByUserName("aisha");
+        System.out.println("Username:" + user);
+    }
+
 }

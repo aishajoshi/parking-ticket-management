@@ -53,6 +53,19 @@ public class UserService {
             return null;
         }
     }
+    public User getUserByUserName(String username){
+        try {
+            if (username == null || username.isEmpty()){
+                System.out.println("Invalid username");
+                return null;
+            }
+            return userRepo.getUserByUserName(username);
+
+        }catch (SQLException e){
+            e.printStackTrace();
+            return null;
+        }
+    }
 
 
     private boolean isValidUser(User user) {

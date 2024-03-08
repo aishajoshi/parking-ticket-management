@@ -42,7 +42,7 @@ public class UserRepo {
     }
 
     private User mapToUserEntity(ResultSet resultSet) throws SQLException {
-        System.out.println("test"+resultSet.getString("email"));
+        System.out.println("test" + resultSet.getString("email"));
         User user = new User();
         user.setUserId(resultSet.getInt("user_id"));
         user.setUserName(resultSet.getString("username"));
@@ -60,6 +60,21 @@ public class UserRepo {
             return mapToUserEntity(resultSet);
         } else {
             System.out.println("No user found with email: " + email);
+            return null;
+        }
+
+    }
+
+    public User getUserByUserName(String username) throws SQLException {
+        String sql = "select * from user where email = ?";
+        PreparedStatement statement = this.datasource.getConnection().prepareStatement(sql);
+        statement.setString(1, username);
+        ResultSet resultSet = statement.executeQuery();
+        if (resultSet.next()) {
+            return mapToUserEntity(resultSet);
+
+        } else {
+            System.out.println("No user found with username:" + username);
             return null;
         }
 
