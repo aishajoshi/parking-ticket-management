@@ -4,11 +4,7 @@ import com.pascal.ptm.entities.User;
 import com.pascal.ptm.repo.UserRepo;
 
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
-import java.util.Random;
 
 public class UserService {
     private final UserRepo userRepo;
@@ -40,28 +36,30 @@ public class UserService {
 
         }
     }
+
     public User getUserByEmail(String email) {
-        try{
+        try {
             if (email == null || email.isEmpty()) {
                 System.out.println("Invalid email");
                 return null;
             }
             return userRepo.getUserByUseremail(email);
 
-        } catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
             return null;
         }
     }
-    public User getUserByUserName(String username){
+
+    public User getUserByUserName(String username) {
         try {
-            if (username == null || username.isEmpty()){
+            if (username == null || username.isEmpty()) {
                 System.out.println("Invalid username");
                 return null;
             }
             return userRepo.getUserByUserName(username);
 
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
             return null;
         }
@@ -69,6 +67,6 @@ public class UserService {
 
 
     private boolean isValidUser(User user) {
-     return user.getUserName()!=null && user.getEmail()!=null;
+        return user.getUserName() != null && user.getEmail() != null;
     }
 }

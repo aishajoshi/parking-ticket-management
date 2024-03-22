@@ -62,7 +62,19 @@ public class UserRepo {
             System.out.println("No user found with email: " + email);
             return null;
         }
+    }
 
+    public String getPasswordByEmail(String email) throws SQLException {
+        String sql = "select password from user where email = ?";
+        PreparedStatement statement = this.datasource.getConnection().prepareStatement(sql);
+        statement.setString(1, email);
+        ResultSet resultSet = statement.executeQuery();
+        if (resultSet.next()) {
+            return resultSet.getString("password");
+        } else {
+            System.out.println("No user found with email: " + email);
+            return null;
+        }
     }
 
     public User getUserByUserName(String username) throws SQLException {

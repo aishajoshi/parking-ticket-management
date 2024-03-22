@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticket List</title>
+    <link rel="stylesheet" href="../static/css/detail.css">
+</head>
+<body>
+<div class="container">
+    <a class="btn btn-primary" href="/ticket/new" role="button">Issue Ticket</a>
+    <a class="btn btn-primary" href="/ticket/checkout" role="button">Checkout Ticket</a>
+    <h1>Ticket List</h1>
+    <table>
+        <thead>
+        <tr>
+            <th>Username</th>
+            <th>Ticket Number</th>
+            <th>Vehicle Number</th>
+            <th>Entry Time</th>
+            <th>Exit Time</th>
+            <th>Total Time</th>
+            <th>Total Amount</th>
+            <th>Phone no</th>
+            <th>Action</th> <!-- New column for Checkout button -->
+        </tr>
+        </thead>
+        <tbody id="ticket-table-body">
+        <tr th:each="ticket : ${tickets}" style="text-align: center">
+            <td th:text="--"></td>
+            <td th:text="${ticket.getTicketNumber()}"></td>
+            <td th:text="${ticket.getVehicleNumber()}"></td>
+            <td th:text="${ticket.getEntryTime()}"></td>
+            <td th:text="${ticket.getExitTime()}"></td>
+            <td th:text="${ticket.getTotalTime()}"></td>
+            <td th:text="${ticket.getTotalAmount()}"></td>
+            <td th:text="${ticket.getPhone()}"></td>
+            <td>
+                <form action="/ticket/checkout" method="post">
+                    <input type="hidden" name="ticketNumber" th:value="${ticket.getTicketNumber()}">
+                    <button type="submit" class="checkout-btn">Checkout</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

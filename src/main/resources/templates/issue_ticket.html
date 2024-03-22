@@ -4,20 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ticket Issue</title>
-    <link rel="stylesheet" href="ticketissue.css">
+    <link rel="stylesheet" href="../static/css/ticketissue.css">
 </head>
 <body>
     <div class="container">
         <h1>Ticket Issue</h1>
-        <form id="ticket-issue-form">
+        <form id="ticket-issue-form" th:action="@{/ticket/new}" th:object="${ticket}" class="form-floating" method="post">
             <div class="form-group">
                 <label for="vehicle-number">Vehicle Number:</label>
-                <input type="text" id="vehicle-number" name="vehicle-number" required>
+                <input type="text" id="vehicle-number" name="vehicle-number" th:field="*{vehicleNumber}" required>
             </div>
 
             <div class="form-group">
                 <label for="ticket-number">Ticket Number:</label>
-                <input type="text" id="ticket-number" name="ticket-number" required>
+                <input type="text" id="ticket-number" name="ticket-number"  th:field="*{ticketNumber}" required>
             </div>
 
             <div class="form-group">

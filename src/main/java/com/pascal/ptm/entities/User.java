@@ -9,6 +9,8 @@ public class User {
     String password;
     LocalDateTime createdAt;
 
+    String fullName;
+
     public int getUserId() {
         return userId;
     }
@@ -23,6 +25,7 @@ public class User {
 
     public void setUserName(String userName) {
         this.userName = userName;
+        this.fullName = userName;
     }
 
     public String getEmail() {
@@ -49,6 +52,14 @@ public class User {
         this.createdAt = createdAt;
     }
 
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -57,6 +68,7 @@ public class User {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", createdAt=" + createdAt +
+                ", fullName='" + fullName + '\'' +
                 '}';
     }
 
