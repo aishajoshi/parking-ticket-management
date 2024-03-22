@@ -43,15 +43,14 @@ public class TicketRepo {
     public List<Ticket> listTicket() throws SQLException {
         String sql = "select * from ticket";
         PreparedStatement statement = this.datasource.getConnection().prepareStatement(sql);
-        List<Ticket> ticketList=new ArrayList<>();
+        List<Ticket> ticketList = new ArrayList<>();
         ResultSet resultSet = statement.executeQuery();
-        while(resultSet.next()){
-            ticketList.add(mapToEntity(resultSet)) ;
+        while (resultSet.next()) {
+            ticketList.add(mapToEntity(resultSet));
         }
-       return ticketList;
+        return ticketList;
 
-}
-
+    }
 
 
     public Ticket getTicketByTicketNumber(String ticketNumber) throws SQLException {
@@ -62,27 +61,49 @@ public class TicketRepo {
         return mapToEntity(resultSet);
     }
 
-private Ticket mapToEntity(ResultSet resultSet) throws SQLException {
-    Ticket ticket = new Ticket();
-    if (resultSet.next()) {
-        ticket.setTicketId(resultSet.getInt("ticket_id"));
-        ticket.setVehicleNumber(resultSet.getString("vehicle_number"));
-        ticket.setTicketNumber(resultSet.getString("ticket_number"));
+    public static String convertSecondsToDuration(long seconds) {
+        long days = seconds / (24 * 3600);
+        long hours = (seconds % (24 * 3600)) / 3600;
+        long minutes = (seconds % 3600) / 60;
+        long remainingSeconds = seconds % 60;
 
-        ticket.setEntryTime(resultSet.getTimestamp("entry_time").toLocalDateTime());
-        if (resultSet.getTimestamp("exit_time") != null) {
-            ticket.setExitTime(resultSet.getTimestamp("exit_time").toLocalDateTime());
+        StringBuilder duration = new StringBuilder();
+        if (days > 0) {
+            duration.append(days).append(" days, ");
         }
-        ticket.setTotalTime(resultSet.getLong("total_time"));
-        ticket.setTotalAmount(resultSet.getFloat("total_amount"));
-        ticket.setCreatedBy(resultSet.getInt("created_by"));
-        ticket.setPhone(resultSet.getString("phone"));
-        ticket.setNote(resultSet.getString("note"));
+        if (hours > 0) {
+            duration.append(hours).append(" hours, ");
+        }
+        if (minutes > 0) {
+            duration.append(minutes).append(" minutes, ");
+        }
+        duration.append(remainingSeconds).append(" seconds");
 
+        return duration.toString();
     }
-    return ticket;
-}
 
+
+    private Ticket mapToEntity(ResultSet resultSet) throws SQLException {
+        Ticket ticket = new Ticket();
+        if (resultSet.next()) {
+            ticket.setTicketId(resultSet.getInt("ticket_id"));
+            ticket.setVehicleNumber(resultSet.getString("vehicle_number"));
+            ticket.setTicketNumber(resultSet.getString("ticket_number"));
+
+            ticket.setEntryTime(resultSet.getTimestamp("entry_time").toLocalDateTime());
+            if (resultSet.getTimestamp("exit_time") != null) {
+                ticket.setExitTime(resultSet.getTimestamp("exit_time").toLocalDateTime());
+            }
+            ticket.setTotalTime(resultSet.getLong("total_time"));
+            ticket.setTotalAmount(resultSet.getFloat("total_amount"));
+            ticket.setCreatedBy(resultSet.getInt("created_by"));
+            ticket.setPhone(resultSet.getString("phone"));
+            ticket.setNote(resultSet.getString("note"));
+            ticket.setTotalTimeStr(convertSecondsToDuration(ticket.getTotalTime()));
+
+        }
+        return ticket;
+    }
 
 
     public boolean saveTicketCheckoutDetail(int ticketId, LocalDateTime exitTime, int updatedBy, double totalAmount, long totalTimeSec) throws SQLException {
@@ -92,9 +113,7 @@ private Ticket mapToEntity(ResultSet resultSet) throws SQLException {
             statement.setDouble(2, totalAmount);
             statement.setInt(3, updatedBy);
             statement.setLong(4, totalTimeSec);
-            statement.setInt(5,ticketId);
-
-
+            statement.setInt(5, ticketId);
 
 
             int rowsUpdated = statement.executeUpdate();

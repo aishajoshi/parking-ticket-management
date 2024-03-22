@@ -9,6 +9,7 @@
 <body>
 <div class="container">
     <a class="btn btn-primary" href="/ticket/new" role="button">Issue Ticket</a>
+    <br>
     <a class="btn btn-primary" href="/ticket/checkout" role="button">Checkout Ticket</a>
     <h1>Ticket List</h1>
     <table>
@@ -32,7 +33,7 @@
             <td th:text="${ticket.getVehicleNumber()}"></td>
             <td th:text="${ticket.getEntryTime()}"></td>
             <td th:text="${ticket.getExitTime()}"></td>
-            <td th:text="${ticket.getTotalTime()}"></td>
+            <td th:text="${ticket.getTotalTimeStr()}"></td>
             <td th:text="${ticket.getTotalAmount()}"></td>
             <td th:text="${ticket.getPhone()}"></td>
             <td>

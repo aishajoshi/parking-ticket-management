@@ -14,6 +14,7 @@ public class Ticket {
     LocalDateTime entryTime;
     LocalDateTime exitTime;
     long totalTime;
+    String totalTimeStr;
     float totalAmount;
     String phone;
     String note;
@@ -126,6 +127,14 @@ public class Ticket {
         return ticketNumber;
     }
 
+    public String getTotalTimeStr() {
+        return totalTimeStr;
+    }
+
+    public void setTotalTimeStr(String totalTimeStr) {
+        this.totalTimeStr = totalTimeStr;
+    }
+
     @Override
     public String toString() {
         return "Ticket{" +
@@ -135,6 +144,7 @@ public class Ticket {
                 ", entryTime=" + entryTime +
                 ", exitTime=" + exitTime +
                 ", totalTime=" + totalTime +
+                ", totalTimeStr='" + totalTimeStr + '\'' +
                 ", totalAmount=" + totalAmount +
                 ", phone='" + phone + '\'' +
                 ", note='" + note + '\'' +
