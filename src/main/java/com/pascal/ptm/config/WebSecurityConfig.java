@@ -14,14 +14,14 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf().disable()
+//                .csrf().disable()
                 .authorizeRequests()
                 .anyRequest()
-                .permitAll()
-                .and()
-                .headers()
-                .frameOptions()
-                .sameOrigin();
+                .permitAll();
+//                .and()
+//                .headers()
+//                .frameOptions()
+//                .sameOrigin();
 
         return http.build();
     }
@@ -29,7 +29,7 @@ public class WebSecurityConfig {
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web
-                .ignoring()
-                .antMatchers("/webjars/**", "/js/**", "/error/**", "/css/**", "/fonts/**", "/libs/**", "/img/**", "/h2-console/**");
+                .ignoring();
+//                .antMatchers("/webjars/**", "/js/**", "/error/**", "/css/**", "/fonts/**", "/libs/**", "/img/**", "/h2-console/**");
     }
 }

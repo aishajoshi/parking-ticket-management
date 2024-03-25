@@ -3,7 +3,7 @@ package com.pascal.ptm.controllers;
 import com.pascal.ptm.entities.Session;
 import org.springframework.ui.Model;
 
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpSession;
 
 
 public class Helper {
