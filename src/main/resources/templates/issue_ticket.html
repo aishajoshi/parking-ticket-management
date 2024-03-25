@@ -16,8 +16,10 @@
             </div>
 
             <div class="form-group">
-                <label for="ticket-number">Ticket Number:</label>
-                <input type="text" id="ticket-number" name="ticket-number"  th:field="*{ticketNumber}" required>
+                <label for="ticket-number">Ticket Number:
+                <label th:text="${ticket.getTicketNumber()}"></label>
+                </label>
+
             </div>
 
             <div class="form-group">
