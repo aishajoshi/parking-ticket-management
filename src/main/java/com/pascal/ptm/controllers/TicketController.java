@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import jakarta.servlet.http.HttpSession;
+
 import java.util.List;
 
 @Controller
@@ -79,7 +80,7 @@ public class TicketController {
     }
 
     @PostMapping("/ticket/checkout")
-    public String checkoutTicket(String ticketNumber, HttpSession session) {
+    public String checkoutTicket(String ticketNumber, Model model, HttpSession session) {
         Session s = Helper.getAuthSession(session);
         if (!s.isAuthenticated()) {
             return "redirect:/home";
@@ -90,7 +91,8 @@ public class TicketController {
             return "checkout_ticket";
         }
         System.out.println("Ticket checkout successfully");
-        return "redirect:/ticket";
+        model.addAttribute("ticket", response);
+        return "checkout_ticket";
     }
 
 }
