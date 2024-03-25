@@ -5,8 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ticket List</title>
     <link rel="stylesheet" href="../static/css/detail.css">
+    <head th:replace="header :: header-css"></head>
 </head>
 <body>
+<div th:replace="header :: header"></div>
 <div class="container">
     <a class="btn btn-primary" href="/ticket/new" role="button">Issue Ticket</a>
     <br>
@@ -46,5 +48,7 @@
         </tbody>
     </table>
 </div>
+<div th:replace="footer :: footer"></div>
+
 </body>
 </html>

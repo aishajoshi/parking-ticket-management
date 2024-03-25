@@ -5,23 +5,23 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig {
-
+    
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-//                .csrf().disable()
-                .authorizeRequests()
-                .anyRequest()
-                .permitAll();
-//                .and()
-//                .headers()
-//                .frameOptions()
-//                .sameOrigin();
+                .authorizeHttpRequests(authorize -> authorize
+                        .anyRequest().permitAll())
+                .csrf(AbstractHttpConfigurer::disable)
+                .headers(headers -> headers
+                        .frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin)
+                );
 
         return http.build();
     }
@@ -29,7 +29,7 @@ public class WebSecurityConfig {
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web
-                .ignoring();
-//                .antMatchers("/webjars/**", "/js/**", "/error/**", "/css/**", "/fonts/**", "/libs/**", "/img/**", "/h2-console/**");
+                .ignoring()
+                .requestMatchers("/webjars/**", "/js/**", "/error/**", "/css/**", "/fonts/**", "/libs/**", "/img/**", "/h2-console/**");
     }
 }
