@@ -17,7 +17,7 @@
         <tr>
             <th>Username</th> <!-- Assuming the attribute for username in User entity is username -->
             <th>Email</th> <!-- Assuming the attribute for email in User entity is email -->
-            <th>Action</th> <!-- New column for actions -->
+
         </tr>
         </thead>
         <tbody id="user-table-body"> <!-- Changed to user-table-body -->
@@ -25,11 +25,7 @@
             <td th:text="${user.getUserName()}"></td> <!-- Changed to access username attribute of User -->
             <td th:text="${user.getEmail()}"></td> <!-- Changed to access email attribute of User -->
 
-            <td>
-                <!-- Define action buttons, e.g., edit, delete -->
-                <a th:href="@{'/user/edit/' + ${user.getUserId()}}" class="edit-btn">Edit</a> <!-- Edit user button -->
-                <a th:href="@{'/user/delete/' + ${user.getUserId()}}" class="delete-btn">Delete</a> <!-- Delete user button -->
-            </td>
+
         </tr>
         </tbody>
     </table>
